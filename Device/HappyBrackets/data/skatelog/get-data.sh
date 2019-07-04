@@ -19,10 +19,10 @@ if [ "$DEVICE_NAME" != "" ]; then
 
     HOST_ADDRESS="pi@${DEVICE_NAME}"
     echo “Downloading skate data from ${HOST_ADDRESS}”
-    scp -r $HOST_ADDRESS:~/HappyBrackets/data/skatelog/ .
+    scp -r $HOST_ADDRESS:~/HappyBrackets/data/skatelog .
 
 else
-    echo "You need to enter the device name as argument to call. eg ${0} 192.168.0.18
+    echo "You need to enter the device name as argument to call. eg ${0} 192.168.0.18"
 fi
 
 
