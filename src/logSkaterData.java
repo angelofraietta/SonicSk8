@@ -19,6 +19,9 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.UserPrincipal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,9 +54,11 @@ public class logSkaterData implements HBAction, HBReset {
      * @return the name of a file
      */
     String createFilename(){
-        long time = (long) HBScheduler.getGlobalScheduler().getSchedulerTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        //Date date = new Date();
+        //long time = (long) HBScheduler.getGlobalScheduler().getSchedulerTime();
         String device_name = Device.getDeviceName();
-        return device_name + "_skateLog_" + time + ".csv";
+        return device_name + "_skateLog_" + dateFormat.format(new Date()) + ".csv";
     }
 
     @Override
