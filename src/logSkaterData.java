@@ -1,10 +1,7 @@
 import net.happybrackets.core.Device;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.HBReset;
-import net.happybrackets.core.control.BooleanControl;
-import net.happybrackets.core.control.TextControl;
-import net.happybrackets.core.control.TextControlSender;
-import net.happybrackets.core.control.TriggerControl;
+import net.happybrackets.core.control.*;
 import net.happybrackets.core.scheduling.Clock;
 import net.happybrackets.core.scheduling.HBScheduler;
 import net.happybrackets.device.HB;
@@ -41,6 +38,7 @@ public class logSkaterData implements HBAction, HBReset {
 
 
 
+
     volatile float accel_x = 0, acecl_y = 0, accel_z = 0, gyro_yaw = 0, gyro_pitch = 0, gyro_roll = 0;
 
     final Object variableLock = new Object();
@@ -48,6 +46,8 @@ public class logSkaterData implements HBAction, HBReset {
 
     String currentFilename = "";
     double startLogTime = 0;
+
+    TextControl logNameIndex = null;
 
     /**
      * Create a filename based on Scheduler time and device name as CSV
@@ -57,7 +57,7 @@ public class logSkaterData implements HBAction, HBReset {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         //Date date = new Date();
         //long time = (long) HBScheduler.getGlobalScheduler().getSchedulerTime();
-        String device_name = Device.getDeviceName();
+        String device_name = logNameIndex.getValue(); // Device.getDeviceName();
         return device_name + "_skateLog_" + dateFormat.format(new Date()) + ".csv";
     }
 
@@ -91,6 +91,9 @@ public class logSkaterData implements HBAction, HBReset {
             }
         };// End gyroscopeSensor code
 
+
+        
+        logNameIndex = new TextControlSender(this, "Log Name", Device.getDeviceName()).setDisplayType(DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);
 
 
         TriggerControl resetTime = new TriggerControl(this, "ResetTime") {
