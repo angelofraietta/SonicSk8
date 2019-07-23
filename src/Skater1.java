@@ -1,6 +1,8 @@
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.SamplePlayer;
 import net.happybrackets.core.HBAction;
+import net.happybrackets.core.control.FloatBuddyControl;
+import net.happybrackets.core.control.FloatControl;
 import net.happybrackets.core.instruments.SampleModule;
 import net.happybrackets.core.instruments.WaveModule;
 import net.happybrackets.core.scheduling.HBScheduler;
@@ -28,11 +30,21 @@ public class Skater1 implements HBAction {
 
 
 
+    double spinThreshold = SPIN_THRESH;
+
     @Override
     public void action(HB hb) {
         hb.reset(); //Clears any running code on the device
         //Write your sketch below
 
+
+        FloatControl thresholdControl = new FloatBuddyControl(this, "Spin Thresshold", spinThreshold, .1, 3) {
+            @Override
+            public void valueChanged(double control_val) {// Write your DynamicControl code below this line 
+                spinThreshold = control_val;
+                // Write your DynamicControl code above this line 
+            }
+        };// End DynamicControl thresholdControl code 
 
 
         // type basicWavePlayer to generate this code
@@ -90,12 +102,12 @@ public class Skater1 implements HBAction {
                 double currenttime = HBScheduler.getGlobalScheduler().getSchedulerTime();
 
 
-                if (Math.abs(p) > SPIN_THRESH){
+                if (Math.abs(p) > spinThreshold){
                     if (!spin_started){
                         spin_start = currenttime;
                         spin_started = true;
                         System.out.println("Spin Started");
-                        sampleModule.setRate(0);
+                        //sampleModule.setRate(0);
                     }
                     else {
                         // already spinning
@@ -109,7 +121,7 @@ public class Skater1 implements HBAction {
                         spin_started = false;
                         System.out.println("Spin Stopped");
                         waveModule.setFrequency(0);
-                        sampleModule.setRate(-1);
+                        //sampleModule.setRate(-1);
                     }
                 }
 
