@@ -51,7 +51,7 @@ public class SpinStopSample implements HBAction {
 
     @Override
     public void action(HB hb) {
-        hb.reset(); //Clears any running code on the device
+        //hb.reset(); //Clears any running code on the device
         //Write your sketch below
 
 
