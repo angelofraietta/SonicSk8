@@ -10,6 +10,9 @@ import net.happybrackets.device.sensors.GyroscopeListener;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
+/**
+ * Make sure you download the python script first
+ */
 public class SpinStopPython implements HBAction {
 
     final int BUF_SIZE = 10;
