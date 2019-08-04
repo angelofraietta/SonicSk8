@@ -1,4 +1,8 @@
+import net.beadsproject.beads.core.Bead;
 import net.beadsproject.beads.data.Buffer;
+import net.beadsproject.beads.events.KillTrigger;
+import net.beadsproject.beads.ugens.Envelope;
+import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.SamplePlayer;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.control.FloatBuddyControl;
@@ -41,7 +45,10 @@ public class SpinStopSample implements HBAction {
 
             sampleModule.getSamplePlayer().setKillOnEnd(true);
             sampleModule.setRate(1);
+
             sampleModule.connectTo(HB.getAudioOutput());
+
+            sampleModule.getSamplePlayer().setEndListener(new KillTrigger(sampleModule.getGainAmplifier()));
 
             // Write your code above this line
         } else {
