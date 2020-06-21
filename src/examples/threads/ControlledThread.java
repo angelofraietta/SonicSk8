@@ -6,8 +6,7 @@ import net.beadsproject.beads.ugens.Glide;
 import net.beadsproject.beads.ugens.WavePlayer;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.HBReset;
-import net.happybrackets.core.control.ControlType;
-import net.happybrackets.core.control.DynamicControl;
+import net.happybrackets.core.control.*;
 import net.happybrackets.core.instruments.WaveModule;
 import net.happybrackets.device.HB;
 
@@ -21,7 +20,6 @@ import java.lang.invoke.MethodHandles;
  * The thread can also be killed
  */
 public class ControlledThread implements HBAction, HBReset {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
     // This variable will become true when the composition is reset
     boolean compositionReset = false;
 
@@ -51,7 +49,7 @@ public class ControlledThread implements HBAction, HBReset {
         hb.setStatus(this.getClass().getSimpleName() + " Loaded");
 
         WaveModule player = new WaveModule(START_FREQUENCY, 0.1f, Buffer.SINE);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
         /* Type threadFunction to generate this code */
         Thread thread = new Thread(() -> {
@@ -71,7 +69,7 @@ public class ControlledThread implements HBAction, HBReset {
                     Thread.sleep(SLEEP_TIME);
                 } catch (InterruptedException e) {/* remove the break below to just resume thread or add your own action */
 
-                    player.getKillTrigger().kill();
+                    player.kill();
                     break;
 
                 }
@@ -85,35 +83,25 @@ public class ControlledThread implements HBAction, HBReset {
         thread.start();/* End threadFunction */
 
 
-        /*************************************************************
-         * Create a Trigger type Dynamic Control that displays as a button
-         *
-         * Simply type triggerControl to generate this code
-         *************************************************************/
-        DynamicControl threadKiller = hb.createDynamicControl(this, ControlType.TRIGGER, "Kill Thread")
-                .addControlListener(control -> {
-
-                    /*** Write your DynamicControl code below this line ***/
-                    thread.interrupt();
-                    /*** Write your DynamicControl code above this line ***/
-                });
-        /*** End DynamicControl code ***/
+        // Type triggerControl to generate this code 
+        TriggerControl threadKiller = new TriggerControl(this, "Kill Thread") {
+            @Override
+            public void triggerEvent() {// Write your DynamicControl code below this line 
+                thread.interrupt();
+                // Write your DynamicControl code above this line 
+            }
+        };// End DynamicControl threadKiller code 
 
         // Create a control pair to set the sleep time of the thread
-        /*************************************************************
-         * Create an integer type Dynamic Control pair that displays as a slider and text box
-         *
-         * Simply type intBuddyControl to generate this code
-         *************************************************************/
-        DynamicControl threadSleepControl = hb.createControlBuddyPair(this, ControlType.INT, "Thread Sleep", DEFAULT_SLEEP_TIME, MINIMUM_SLEEP_TIME, MAXIMUM_SLEEP_TIME)
-                .addControlListener(control -> {
-                    int control_val = (int) control.getValue();
+        // Type intBuddyControl to generate this code
+        IntegerControl threadSleepControl = new IntegerControl(this, "Thread Sleep", DEFAULT_SLEEP_TIME) {
+            @Override
+            public void valueChanged(int control_val) {// Write your DynamicControl code below this line
+                threadSleepTime = control_val;
+                // Write your DynamicControl code above this line
+            }
+        }.setDisplayRange(MINIMUM_SLEEP_TIME, MAXIMUM_SLEEP_TIME, DynamicControl.DISPLAY_TYPE.DISPLAY_ENABLED_BUDDY);// End DynamicControl threadSleepControl code
 
-                    /*** Write your DynamicControl code below this line ***/
-                    threadSleepTime = control_val;
-                    /*** Write your DynamicControl code above this line ***/
-                });
-        /*** End DynamicControl code ***/
 
         /***** Type your HBAction code below this line ******/
     }

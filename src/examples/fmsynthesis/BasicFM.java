@@ -17,8 +17,6 @@ import java.lang.invoke.MethodHandles;
  * We will be using a function to calculate the frequency the carrier wavePlayer needs to be at
  */
 public class BasicFM implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     @Override
     public void action(HB hb) {
 
@@ -58,7 +56,7 @@ public class BasicFM implements HBAction {
 
         // Now make our player using the modFunction as the frequency
         WaveModule player = new WaveModule(modFunction, INITIAL_VOLUME, Buffer.SINE);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
 
     }

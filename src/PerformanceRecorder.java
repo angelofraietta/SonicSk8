@@ -76,7 +76,7 @@ public class PerformanceRecorder implements HBAction, HBReset {
         //hb.reset(); //Clears any running code on the device
         //Write your sketch below
 
-        logNameIndex = new TextControlSender(this, "Log Name", "").setDisplayType(DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT).setControlScope(ControlScope.GLOBAL);
+        logNameIndex = new TextControl(this, "Log Name", "").setDisplayType(DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT).setControlScope(ControlScope.GLOBAL);
 
 
         TriggerControl resetTime = new TriggerControl(this, "ResetTime") {
@@ -89,7 +89,7 @@ public class PerformanceRecorder implements HBAction, HBReset {
             }
         }.setControlScope(ControlScope.GLOBAL);// End DynamicControl resetTime code
 
-        filenameDisplay = new TextControlSender(this, "File name", "");
+        filenameDisplay = new TextControl(this, "File name", "");
 
         BooleanControl recordControl = new BooleanControl(this, "RecordPerformance", false) {
             @Override

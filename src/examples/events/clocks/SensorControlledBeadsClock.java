@@ -20,8 +20,6 @@ import java.lang.invoke.MethodHandles;
  */
 public class SensorControlledBeadsClock implements HBAction {
 
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     // These parameters need to be class variables so they can be accessed within the clock
     final int START_NOTE = 40; // this is the MIDI number of first note
     final int END_NOTE = 110;  // this is the last note we will play
@@ -37,7 +35,7 @@ public class SensorControlledBeadsClock implements HBAction {
         WaveModule player = new WaveModule();
         player.setBuffer(Buffer.SQUARE);
         player.setMidiFrequency(currentNote);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
         final double CLOCK_INTERVAL = 500;
 

@@ -1,7 +1,7 @@
 import com.opencsv.CSVReader;
 import net.happybrackets.core.HBAction;
+import net.happybrackets.core.control.DynamicControl;
 import net.happybrackets.core.control.FloatControl;
-import net.happybrackets.core.control.FloatSliderControl;
 import net.happybrackets.core.scheduling.Clock;
 import net.happybrackets.device.HB;
 
@@ -25,54 +25,54 @@ public class TestSkateLog implements HBAction {
         hb.reset(); //Clears any running code on the device
         //Write your sketch below
 
-        FloatControl xSlider = new FloatSliderControl(this, "X", 0, -2, 2) {
+        FloatControl xSlider = new FloatControl(this, "X", 0) {
             @Override
             public void valueChanged(double control_val) {// Write your DynamicControl code below this line
 
                 // Write your DynamicControl code above this line
             }
-        };// End DynamicControl xSlider code
+        }.setDisplayRange(-2, 2, DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);// End DynamicControl xSlider code
 
-        FloatControl ySlider = new FloatSliderControl(this, "Y", 0, -2, 2) {
+        FloatControl ySlider = new FloatControl(this, "Y", 0) {
             @Override
             public void valueChanged(double control_val) {// Write your DynamicControl code below this line
 
                 // Write your DynamicControl code above this line
             }
-        };// End DynamicControl xSlider code
+        }.setDisplayRange(-2, 2, DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);// End DynamicControl xSlider code
 
-        FloatControl zSlider = new FloatSliderControl(this, "Z", 0, -2, 2) {
+        FloatControl zSlider = new FloatControl(this, "Z", 0) {
             @Override
             public void valueChanged(double control_val) {// Write your DynamicControl code below this line
 
                 // Write your DynamicControl code above this line
             }
-        };// End DynamicControl xSlider code
+        }.setDisplayRange(-2, 2, DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);// End DynamicControl xSlider code
 
 
-        FloatControl pitchSlider = new FloatSliderControl(this, "Pitch", 0, -2, 2) {
+        FloatControl pitchSlider = new FloatControl(this, "Pitch", 0) {
             @Override
             public void valueChanged(double control_val) {// Write your DynamicControl code below this line
 
                 // Write your DynamicControl code above this line
             }
-        };// End DynamicControl xSlider code
+        }.setDisplayRange(-2, 2, DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);// End DynamicControl xSlider code
 
-        FloatControl rollSlider = new FloatSliderControl(this, "Roll", 0, -2, 2) {
+        FloatControl rollSlider = new FloatControl(this, "Roll", 0) {
             @Override
             public void valueChanged(double control_val) {// Write your DynamicControl code below this line
 
                 // Write your DynamicControl code above this line
             }
-        };// End DynamicControl xSlider code
+        }.setDisplayRange(-2, 2, DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);// End DynamicControl xSlider code
 
-        FloatControl yawSlider = new FloatSliderControl(this, "yaw", 0, -2, 2) {
+        FloatControl yawSlider = new FloatControl(this, "yaw", 0) {
             @Override
             public void valueChanged(double control_val) {// Write your DynamicControl code below this line
 
                 // Write your DynamicControl code above this line
             }
-        };// End DynamicControl xSlider code
+        }.setDisplayRange(-2, 2, DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);// End DynamicControl xSlider code
 
 
         CSVReader reader = null;

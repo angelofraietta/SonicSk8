@@ -1,14 +1,9 @@
-import net.beadsproject.beads.core.Bead;
-import net.beadsproject.beads.data.Buffer;
+import Sender.HBPerm_DataSmoother;
 import net.beadsproject.beads.events.KillTrigger;
-import net.beadsproject.beads.ugens.Envelope;
-import net.beadsproject.beads.ugens.Gain;
-import net.beadsproject.beads.ugens.SamplePlayer;
 import net.happybrackets.core.HBAction;
-import net.happybrackets.core.control.FloatBuddyControl;
+import net.happybrackets.core.control.DynamicControl;
 import net.happybrackets.core.control.FloatControl;
 import net.happybrackets.core.instruments.SampleModule;
-import net.happybrackets.core.instruments.WaveModule;
 import net.happybrackets.core.scheduling.HBScheduler;
 import net.happybrackets.device.HB;
 import net.happybrackets.device.sensors.AccelerometerListener;
@@ -62,13 +57,13 @@ public class SpinStopSample implements HBAction {
         //Write your sketch below
 
 
-        FloatControl thresholdControl = new FloatBuddyControl(this, "Spin Thresshold", spinThreshold, .1, 3) {
+        FloatControl thresholdControl = new FloatControl(this, "Spin Thresshold", spinThreshold) {
             @Override
             public void valueChanged(double control_val) {// Write your DynamicControl code below this line 
                 spinThreshold = control_val;
                 // Write your DynamicControl code above this line 
             }
-        };// End DynamicControl thresholdControl code 
+        }.setDisplayRange(.1, 3, DynamicControl.DISPLAY_TYPE.DISPLAY_ENABLED_BUDDY);// End DynamicControl thresholdControl code
 
 
 

@@ -38,6 +38,14 @@ This file wil give a short description of the examples
 
 *******************************************************************
 [events]     - Different types of events that can be used
+  [scheduled] - performs scheduled items
+    AdjustSynchroniser - Adjusts scheduler by an amount we set
+    FollowBoolean - Makes  boolean controls schedule global events
+    FollowFloats - Makes float controls schedule global events
+    FollowInts - Makes integer controls schedule global events
+    ScheduleEvent - Schedules playing of a sound some time in the future
+    ShowTime - Displays the time of the synchroniser as a status Message
+
   [clocks]   - Perform actions on clock based events
     SimpleClock             Plays a chromatic scale using a clock.
                             Uses Midi to Frequency function to convert a MIDI note number to a frequency
@@ -54,6 +62,7 @@ This file wil give a short description of the examples
 
 *******************************************************************
 [osc]
+   [GetControllerAddress] - Dislays the IP address of the controller that sent this class
    [OSCReceiveValues]      - Displays receiving OSC on port 9000
    [OSCSendAccelerometer]  - Display Sending Accelerometer values to Port 9000 on localhost
    [OSCSender]             - Displays sending various OSC types
@@ -83,6 +92,10 @@ This file wil give a short description of the examples
 *******************************************************************
 [controls] - demonstrates DynamicControls and GUI manipulation
 
+  [classobjectcontrols] - Class objects
+    GlobalCustomExample - Send a custom class as a global message
+    GlobalReceiveAccelerometer - receive a class that has three floating point axis values as a single message. Use example with GlobalSendAccelerometer GlobalReceiveAccelerometer
+    GlobalSendAccelerometer - convert accelerometer tilt values, convert to degrees, and send as a single message as a global control. Use with
   [booleancontrol] - true or false controls. Display or set with a checkbox
     BooleanControlSample    Starts and stops a sine wave with a checkbox
     MonitorBoolean          Monitor the value of a Beads Clock being on the beat on GUI with a checkbox
@@ -96,6 +109,7 @@ This file wil give a short description of the examples
   [globalcontrol] - Sending and receiving values across the network
     GlobalControl           Send global floating point values to change frequency across network
                             and global boolean values to turn sound on and off
+    TargetControl - Displays how different devices can be targeted on the network
 
   [gpio]           - Accessing GPIO pins on the device
     DigitalInGPIO  - Read digital values from GPIO Digital input

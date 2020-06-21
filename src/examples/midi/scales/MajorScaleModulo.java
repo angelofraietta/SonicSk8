@@ -2,9 +2,6 @@ package examples.midi.scales;
 
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.data.Pitch;
-import net.beadsproject.beads.ugens.Gain;
-import net.beadsproject.beads.ugens.Glide;
-import net.beadsproject.beads.ugens.WavePlayer;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.instruments.WaveModule;
 import net.happybrackets.core.scheduling.Clock;
@@ -26,8 +23,6 @@ import java.lang.invoke.MethodHandles;
  */
 public class MajorScaleModulo implements HBAction {
 
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     // we need to define class variables so we can access them inside the clock
 
     // we will increment this number to get to next note is scale
@@ -47,7 +42,7 @@ public class MajorScaleModulo implements HBAction {
 
 
         WaveModule player = new WaveModule(Pitch.mtof(BASE_TONIC), 0.1f, Buffer.SQUARE);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
 
 

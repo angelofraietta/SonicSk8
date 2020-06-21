@@ -16,7 +16,6 @@ import java.lang.invoke.MethodHandles;
  */
 public class SimpleSamplePlayer implements HBAction
 {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
     @Override
     public void action(HB hb) {
 
@@ -26,14 +25,14 @@ public class SimpleSamplePlayer implements HBAction
 
         /* type basicSamplePLayer to generate this code */
         // define our sample name
-        final String sample_name = "data/audio/Roje/i-write.wav";
+        final String sample_name = "data/audio/long/1979.wav";
         SampleModule player = new SampleModule();
         if (player.setSample(sample_name)) {/* Write your code below this line */
-            player.connectTo(hb.ac.out);
+            player.connectTo(HB.getAudioOutput());
 
             /* Write your code above this line */
         } else {
-            hb.setStatus("Failed sample " + sample_name);
+            HB.HBInstance.setStatus("Failed sample " + sample_name);
         }/* End samplePlayer code */
 
     }

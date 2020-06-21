@@ -1,6 +1,7 @@
+import Sender.HBPerm_DataSmoother;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.ShellExecute;
-import net.happybrackets.core.control.FloatBuddyControl;
+import net.happybrackets.core.control.DynamicControl;
 import net.happybrackets.core.control.FloatControl;
 import net.happybrackets.core.scheduling.HBScheduler;
 import net.happybrackets.device.HB;
@@ -56,13 +57,13 @@ public class SpinStopPython implements HBAction {
         //Write your sketch below
 
 
-        FloatControl thresholdControl = new FloatBuddyControl(this, "Spin Thresshold", spinThreshold, .1, 3) {
+        FloatControl thresholdControl = new FloatControl(this, "Spin Thresshold", spinThreshold) {
             @Override
             public void valueChanged(double control_val) {// Write your DynamicControl code below this line 
                 spinThreshold = control_val;
                 // Write your DynamicControl code above this line 
             }
-        };// End DynamicControl thresholdControl code 
+        }.setDisplayRange(.1, 3, DynamicControl.DISPLAY_TYPE.DISPLAY_ENABLED_BUDDY);// End DynamicControl thresholdControl code
 
 
 

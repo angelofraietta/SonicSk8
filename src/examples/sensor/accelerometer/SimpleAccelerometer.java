@@ -17,8 +17,6 @@ import java.lang.invoke.MethodHandles;
  * accelerometer values typically range from -1 to +1, however, we are scaling it from 0 to 2000
  */
 public class SimpleAccelerometer implements HBAction{
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     @Override
     public void action(HB hb) {
 
@@ -31,7 +29,7 @@ public class SimpleAccelerometer implements HBAction{
 
         // Map a scaled value of Accelerometer X to the frequency
         player.setFrequency(hb.getAccelerometer_X(0, 2000));
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
 
     }

@@ -13,8 +13,6 @@ import java.lang.invoke.MethodHandles;
  * Uses gyroscope sensor to map each axis to the frequency of three different waveforms
  */
 public class TripleAxisGyroscope implements HBAction, HBReset {
-    // Change to the number of audio Channels on your device
-    final int NUMBER_AUDIO_CHANNELS = 1;
 
     // This variable will become true when the composition is reset
     boolean compositionReset = false;
@@ -32,13 +30,13 @@ public class TripleAxisGyroscope implements HBAction, HBReset {
         final float MULTIPLIER_FREQUENCY = 500;
 
         WaveModule yaw_player = new WaveModule(CENTRE_FREQUENCY, 0.1f, Buffer.SINE);
-        yaw_player.connectTo(hb.ac.out);
+        yaw_player.connectTo(HB.getAudioOutput());
 
         WaveModule pitch_player = new WaveModule(CENTRE_FREQUENCY, 0.1f, Buffer.SQUARE);
-        pitch_player.connectTo(hb.ac.out);
+        pitch_player.connectTo(HB.getAudioOutput());
 
         WaveModule roll_player = new WaveModule(CENTRE_FREQUENCY, 0.1f, Buffer.SAW);
-        roll_player.connectTo(hb.ac.out);
+        roll_player.connectTo(HB.getAudioOutput());
 
         /** type gyroscopeSensor to create this. Values typically range from -1 to + 1 **/
         new GyroscopeListener(hb) {

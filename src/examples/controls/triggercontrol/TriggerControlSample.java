@@ -7,7 +7,6 @@ import net.beadsproject.beads.ugens.WavePlayer;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.control.ControlType;
 import net.happybrackets.core.control.FloatControl;
-import net.happybrackets.core.control.FloatControlSender;
 import net.happybrackets.core.control.TriggerControl;
 import net.happybrackets.core.instruments.WaveModule;
 import net.happybrackets.device.HB;
@@ -22,9 +21,6 @@ import java.lang.invoke.MethodHandles;
  *
  */
 public class TriggerControlSample implements HBAction {
-
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     /**********************************************
      We need to make our counter a class variable so
      it can be accessed within the message handler
@@ -45,12 +41,12 @@ public class TriggerControlSample implements HBAction {
 
         WaveModule player = new WaveModule();
         player.setFrequency(frequencyList[0]);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
 
 
         /* Simply type floatControlSender to generate this code */
-        FloatControl frequencyDisplay = new FloatControlSender(this, "Current Frequency", frequencyList[0]);
+        FloatControl frequencyDisplay = new FloatControl(this, "Current Frequency", frequencyList[0]);
 
 
         // Now add a dynamicControl to switch the frequency

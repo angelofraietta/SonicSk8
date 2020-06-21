@@ -23,8 +23,6 @@ import java.lang.invoke.MethodHandles;
  * after hold segment is complete, we move to reverse and then hold. We kill the gain at the end of the segment
  */
 public class SampleChangeSpeed implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     @Override
     public void action(HB hb) {
 
@@ -34,14 +32,14 @@ public class SampleChangeSpeed implements HBAction {
 
         /* type basicSamplePLayer to generate this code */
         // define our sample name
-        final String sample_name = "data/audio/Roje/i-write.wav";
+        final String sample_name = "data/audio/long/1979.wav";
         SampleModule samplePlayer = new SampleModule();
         if (samplePlayer.setSample(sample_name)) {/* Write your code below this line */
-            samplePlayer.connectTo(hb.ac.out);
+            samplePlayer.connectTo(HB.getAudioOutput());
 
             /* Write your code above this line */
         } else {
-            hb.setStatus("Failed sample " + sample_name);
+            HB.sendStatus("Failed sample " + sample_name);
         }/* End samplePlayer code */
 
         // define our speeds
@@ -87,7 +85,7 @@ public class SampleChangeSpeed implements HBAction {
         // Change speed
         speedEnvelope.addSegment(REVERSE, SEGMENT_DURATION);
         // hold speed. Then kill our playback at the end
-        speedEnvelope.addSegment(REVERSE, SEGMENT_DURATION, new KillTrigger(samplePlayer.getKillTrigger()));
+        speedEnvelope.addSegment(REVERSE, SEGMENT_DURATION, new KillTrigger(samplePlayer));
 
 
 

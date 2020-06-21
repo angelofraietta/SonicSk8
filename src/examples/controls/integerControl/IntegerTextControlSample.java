@@ -6,7 +6,7 @@ import net.beadsproject.beads.ugens.Glide;
 import net.beadsproject.beads.ugens.WavePlayer;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.control.ControlType;
-import net.happybrackets.core.control.IntegerTextControl;
+import net.happybrackets.core.control.IntegerControl;
 import net.happybrackets.core.instruments.WaveModule;
 import net.happybrackets.device.HB;
 
@@ -17,8 +17,6 @@ import java.lang.invoke.MethodHandles;
  * by a dynamicControl that will display as a text boxes
  */
 public class IntegerTextControlSample implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     @Override
     public void action(HB hb) {
         // remove this code if you do not want other compositions to run at the same time as this one
@@ -30,13 +28,13 @@ public class IntegerTextControlSample implements HBAction {
         final int MAX_VOLUME = 1; // define how loud we want the sound
 
         WaveModule player = new WaveModule();
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
 
         // Now add a dynamicControl to set the frequency
 
         /* Type intTextControl to generate this code */
-        IntegerTextControl frequency = new IntegerTextControl(this, "Frequency", INITIAL_FREQUENCY) {
+        IntegerControl frequency = new IntegerControl(this, "Frequency", INITIAL_FREQUENCY) {
             @Override
             public void valueChanged(int control_val) {/* Write your DynamicControl code below this line */
                 // set our frequency to the control value
@@ -49,7 +47,7 @@ public class IntegerTextControlSample implements HBAction {
         // Now add a dynamicControl to set the gain
 
         /* Type intTextControl to generate this code */
-        IntegerTextControl gainControl = new IntegerTextControl(this, "Gain", MAX_VOLUME) {
+        IntegerControl gainControl = new IntegerControl(this, "Gain", MAX_VOLUME) {
             @Override
             public void valueChanged(int control_val) {/* Write your DynamicControl code below this line */
                 // change our gain according to control value

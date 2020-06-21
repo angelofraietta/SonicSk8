@@ -93,7 +93,7 @@ public class logSkaterData implements HBAction, HBReset {
 
 
         
-        logNameIndex = new TextControlSender(this, "Log Name", Device.getDeviceName()).setDisplayType(DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);
+        logNameIndex = new TextControl(this, "Log Name", Device.getDeviceName()).setDisplayType(DynamicControl.DISPLAY_TYPE.DISPLAY_DEFAULT);
 
 
         TriggerControl resetTime = new TriggerControl(this, "ResetTime") {
@@ -106,7 +106,7 @@ public class logSkaterData implements HBAction, HBReset {
             }
         };// End DynamicControl resetTime code
 
-        TextControl filenameDisplay = new TextControlSender(this, "File name", "");
+        TextControl filenameDisplay = new TextControl(this, "File name", "");
 
 
         Clock logClock = hb.createClock(LOG_DATA_RATE).addClockTickListener((offset, this_clock) -> {// Write your code below this line

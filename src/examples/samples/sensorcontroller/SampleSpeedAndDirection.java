@@ -16,8 +16,6 @@ import java.lang.invoke.MethodHandles;
  * Moving yaw >=1 will cause sample to play forward. Moving yaw <= -1 will make sample play backwards
  */
 public class SampleSpeedAndDirection implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     @Override
     public void action(HB hb) {
         // remove this code if you do not want other compositions to run at the same time as this one
@@ -34,7 +32,7 @@ public class SampleSpeedAndDirection implements HBAction {
         Glide audioVolume = new Glide(INITIAL_VOLUME);
 
         // Define our sample name
-        final String SAMPLE_NAME = "data/audio/Roje/i-write.wav";
+        final String SAMPLE_NAME = "data/audio/long/1979.wav";
 
         // create our actual sample
         Sample sample = SampleManager.sample(SAMPLE_NAME);
@@ -47,9 +45,9 @@ public class SampleSpeedAndDirection implements HBAction {
             samplePlayer.setKillOnEnd(false);
 
             // Connect our sample player to audio
-            Gain gainAmplifier = new Gain(NUMBER_AUDIO_CHANNELS, audioVolume);
+            Gain gainAmplifier = new Gain(HB.getNumOutChannels(), audioVolume);
             gainAmplifier.addInput(samplePlayer);
-            hb.ac.out.addInput(gainAmplifier);
+            HB.getAudioOutput().addInput(gainAmplifier);
 
             /******** Write your code below this line ********/
 
@@ -141,7 +139,7 @@ public class SampleSpeedAndDirection implements HBAction {
 
             /******** Write your code above this line ********/
         } else {
-            hb.setStatus("Failed sample " + SAMPLE_NAME);
+            HB.HBInstance.setStatus("Failed sample " + SAMPLE_NAME);
         }
         /*** End samplePlayer code ***/
     }

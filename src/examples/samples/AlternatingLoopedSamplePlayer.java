@@ -12,8 +12,6 @@ import net.happybrackets.device.HB;
 import java.lang.invoke.MethodHandles;
 
 public class AlternatingLoopedSamplePlayer implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-
     // define our start and end loop points
     final float LOOP_START = 800;
     final  float LOOP_END = 1800;
@@ -33,14 +31,14 @@ public class AlternatingLoopedSamplePlayer implements HBAction {
 
         /* type basicSamplePLayer to generate this code */
         // define our sample name
-        final String sample_name = "data/audio/Roje/i-write.wav";
+        final String sample_name = "data/audio/long/1979.wav";
         SampleModule samplePlayer = new SampleModule();
         if (samplePlayer.setSample(sample_name)) {/* Write your code below this line */
-            samplePlayer.connectTo(hb.ac.out);
+            samplePlayer.connectTo(HB.getAudioOutput());
 
             /* Write your code above this line */
         } else {
-            hb.setStatus("Failed sample " + sample_name);
+            HB.HBInstance.setStatus("Failed sample " + sample_name);
         }/* End samplePlayer code */
 
             // define our loop type. we will loop forwards

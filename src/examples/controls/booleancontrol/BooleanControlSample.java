@@ -17,8 +17,6 @@ import java.lang.invoke.MethodHandles;
  * by a dynamicControl that will display as a check box
  */
 public class BooleanControlSample implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     @Override
     public void action(HB hb) {
         // remove this code if you do not want other compositions to run at the same time as this one
@@ -29,7 +27,7 @@ public class BooleanControlSample implements HBAction {
         final float MAX_VOLUME = 0.1f; // define how loud we want the sound
 
         WaveModule player = new WaveModule(INITIAL_FREQUENCY, MAX_VOLUME, Buffer.SINE);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
 
         // Now add a dynamicControl to pause

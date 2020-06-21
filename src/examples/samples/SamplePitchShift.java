@@ -27,8 +27,6 @@ import java.lang.invoke.MethodHandles;
  * When our last note reaches 3 octaves, we start again at base note
  */
 public class SamplePitchShift implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     // we need to define class variables so we can access them inside the clock
 
     // we will increment this number to get to next note is scale
@@ -53,11 +51,11 @@ public class SamplePitchShift implements HBAction {
         final String sample_name = "data/audio/Nylon_Guitar/Clean_A_harm.wav";
         SampleModule samplePlayer = new SampleModule();
         if (samplePlayer.setSample(sample_name)) {/* Write your code below this line */
-            samplePlayer.connectTo(hb.ac.out);
+            samplePlayer.connectTo(HB.getAudioOutput());
 
             /* Write your code above this line */
         } else {
-            hb.setStatus("Failed sample " + sample_name);
+            HB.sendStatus("Failed sample " + sample_name);
         }/* End samplePlayer code */
 
 

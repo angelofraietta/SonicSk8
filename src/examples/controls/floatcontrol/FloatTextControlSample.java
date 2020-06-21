@@ -6,6 +6,7 @@ import net.beadsproject.beads.ugens.Glide;
 import net.beadsproject.beads.ugens.WavePlayer;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.control.ControlType;
+import net.happybrackets.core.control.FloatControl;
 import net.happybrackets.core.instruments.WaveModule;
 import net.happybrackets.device.HB;
 
@@ -16,8 +17,6 @@ import java.lang.invoke.MethodHandles;
  * by a dynamicControl that will display as a text boxes
  */
 public class FloatTextControlSample implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     @Override
     public void action(HB hb) {
 
@@ -26,10 +25,10 @@ public class FloatTextControlSample implements HBAction {
         hb.setStatus(this.getClass().getSimpleName() + " Loaded");
 
         final float INITIAL_FREQUENCY = 1000; // this is the frequency of the waveform we will make
-        final float MAX_VOLUME = 0.1f; // define how loud we want the sound
+        final double MAX_VOLUME = 0.1; // define how loud we want the sound
 
         WaveModule player = new WaveModule(INITIAL_FREQUENCY, MAX_VOLUME, Buffer.SINE);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
         /*************************************************************
          * Create Float type Dynamic Controls that displays as a text box
@@ -40,7 +39,7 @@ public class FloatTextControlSample implements HBAction {
         // Now add a dynamicControl to set the frequency
 
         /* Type floatTextControl to generate this code */
-        net.happybrackets.core.control.FloatTextControl frequencyControl = new net.happybrackets.core.control.FloatTextControl(this, "Frequency", INITIAL_FREQUENCY) {
+        FloatControl frequencyControl = new FloatControl(this, "Frequency", INITIAL_FREQUENCY) {
             @Override
             public void valueChanged(double control_val) {/* Write your DynamicControl code below this line */
 
@@ -54,7 +53,7 @@ public class FloatTextControlSample implements HBAction {
         // Now add a dynamicControl to set the gain
 
         /* Type floatTextControl to generate this code */
-        net.happybrackets.core.control.FloatTextControl gainControl = new net.happybrackets.core.control.FloatTextControl(this, "Gain", MAX_VOLUME) {
+        FloatControl gainControl = new FloatControl(this, "Gain", MAX_VOLUME) {
             @Override
             public void valueChanged(double control_val) {/* Write your DynamicControl code below this line */
                 // change our gain according to control value

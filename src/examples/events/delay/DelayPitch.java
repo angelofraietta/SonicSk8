@@ -14,8 +14,6 @@ This sketch plays 400Khz Tone with a clock that changes its pitch to 1Khz for 30
 We will use a delay Object to triger a return to original pitch
  */
 public class DelayPitch implements HBAction, HBReset {
-    // Change to the number of audio Channels on your device
-    final int NUMBER_AUDIO_CHANNELS = 1;
 
     int ORIGINAL_PITCH = 400;
     int HIGH_PITCH = 1000;
@@ -36,18 +34,22 @@ public class DelayPitch implements HBAction, HBReset {
         waveModule.setFrequency(ORIGINAL_PITCH);
         waveModule.setGain(0.1f);
         waveModule.setBuffer(Buffer.SINE);
-        waveModule.connectTo(hb.ac.out);
+        waveModule.connectTo(HB.getAudioOutput());
 
         /* To create this, just type clockTimer */
         Clock clock = hb.createClock(500).addClockTickListener((offset, this_clock) -> {/* Write your code below this line */
             waveModule.setFrequency(HIGH_PITCH);
 
             // now create the delay to switch back to original pitch
-            new Delay(HOLD_TIME, waveModule, (v, o) -> {
-                // v is how far out we were from our exact delay time in ms and is a double
-                // o is the parameter we passed in, which was the waveplayer
-                System.out.println("Delay offset by " + v + " ms");
-                ((WaveModule)o).setFrequency(ORIGINAL_PITCH);
+
+
+            // type delayline to create this code 
+            Delay delay = new Delay(HOLD_TIME, waveModule, (delay_offset, param) -> {
+                // delay_offset is how far out we were from our exact delay time in ms and is a double
+                // param is the parameter we passed in type your code below this line
+                System.out.println("Delay offset by " + delay_offset + " ms");
+                ((WaveModule)param).setFrequency(ORIGINAL_PITCH);
+                // type your code above this line
             });
 
             /* Write your code above this line */

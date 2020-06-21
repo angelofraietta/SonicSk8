@@ -6,7 +6,6 @@ import net.happybrackets.core.HBReset;
 import net.happybrackets.core.OSCUDPListener;
 import net.happybrackets.core.OSCUDPReceiver;
 import net.happybrackets.core.control.TextControl;
-import net.happybrackets.core.control.TextControlSender;
 import net.happybrackets.device.HB;
 
 import java.io.IOException;
@@ -17,8 +16,6 @@ import java.net.SocketAddress;
  * This composition will receive OSC on Port 9000
  */
 public class OSCReceiveValues implements HBAction, HBReset {
-    // Change to the number of audio Channels on your device
-    final int NUMBER_AUDIO_CHANNELS = 1;
 
     // This variable will become true when the composition is reset
     boolean compositionReset = false;
@@ -28,10 +25,10 @@ public class OSCReceiveValues implements HBAction, HBReset {
         /***** Type your HBAction code below this line ******/
         // remove this code if you do not want other compositions to run at the same time as this one
         //hb.reset();
-        hb.setStatus(this.getClass().getSimpleName() + " Loaded");
+        HB.HBInstance.setStatus(this.getClass().getSimpleName() + " Loaded");
 
         // This is where we will display out Message
-        TextControl receivedMessageControl = new TextControlSender(this, "Received Message", "");
+        TextControl receivedMessageControl = new TextControl(this, "Received Message", "");
 
         /* type osclistener to create this code */
         OSCUDPListener oscudpListener = new OSCUDPListener(9000) {

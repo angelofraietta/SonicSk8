@@ -17,8 +17,6 @@ import java.lang.invoke.MethodHandles;
  */
 public class SimpleThread implements HBAction, HBReset {
 
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     final float START_FREQUENCY = 100; // this is the frequency of the waveform we will make
     final float MAX_FREQUENCY = 15000; // This is the maximum frequency
 
@@ -34,7 +32,7 @@ public class SimpleThread implements HBAction, HBReset {
         hb.setStatus(this.getClass().getSimpleName() + " Loaded");
 
         WaveModule player = new WaveModule(START_FREQUENCY, 0.1f, Buffer.SINE);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
 
         /* Type threadFunction to generate this code */
         Thread thread = new Thread(() -> {

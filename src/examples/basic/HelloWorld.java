@@ -14,8 +14,6 @@ import java.lang.invoke.MethodHandles;
  * This sketch generates a 1KHz sine wave and plays it through a gain object and output to the device
  */
 public class HelloWorld implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-
     @Override
     public void action(HB hb) {
 
@@ -31,7 +29,7 @@ public class HelloWorld implements HBAction {
         WaveModule waveModule = new WaveModule(INITIAL_FREQUENCY, INITIAL_VOLUME, Buffer.SINE);
 
         // Now plug the gain object into the audio output
-        waveModule.connectTo(hb.ac.out);
+        waveModule.connectTo(HB.getAudioOutput());
 
 
 

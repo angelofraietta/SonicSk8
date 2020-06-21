@@ -3,6 +3,7 @@ package examples.sensor.gyroscope;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.control.ControlType;
 import net.happybrackets.core.control.DynamicControl;
+import net.happybrackets.core.control.FloatControl;
 import net.happybrackets.device.HB;
 import net.happybrackets.device.sensors.GyroscopeListener;
 
@@ -21,32 +22,38 @@ public class MonitorGyroscope implements HBAction {
         hb.setStatus(this.getClass().getSimpleName() + " Loaded");
 
         /***** Type your HBAction code below this line ******/
-        /*************************************************************
-         * Create a Float type Dynamic Control pair that displays as a slider and text box
-         *
-         * Simply type floatBuddyControl to generate this code
-         *************************************************************/
-        DynamicControl displayYaw = hb.createControlBuddyPair(this, ControlType.FLOAT, "Yaw", 0, -1, 1);
-        // Listener removed as it is unnecessary
-        /*** End DynamicControl code ***/
 
-        /*************************************************************
-         * Create a Float type Dynamic Control pair that displays as a slider and text box
-         *
-         * Simply type floatBuddyControl to generate this code
-         *************************************************************/
-        DynamicControl displayPitch = hb.createControlBuddyPair(this, ControlType.FLOAT, "Pitch", 0, -1, 1);
-        // Listener removed as it is unnecessary
-        /*** End DynamicControl code ***/
 
-        /*************************************************************
-         * Create a Float type Dynamic Control pair that displays as a slider and text box
-         *
-         * Simply type floatBuddyControl to generate this code
-         *************************************************************/
-        DynamicControl displayRoll = hb.createControlBuddyPair(this, ControlType.FLOAT, "Roll", 0, -1, 1);
-        // Listener removed as it is unnecessary
-        /*** End DynamicControl code ***/
+        // Simply type floatBuddyControl to generate this code
+        FloatControl displayYaw = new FloatControl(this, "Yaw Monitor", 0) {
+            @Override
+            public void valueChanged(double control_val) {// Write your DynamicControl code below this line
+
+                // Write your DynamicControl code above this line
+            }
+        }.setDisplayRange(-1, 1, DynamicControl.DISPLAY_TYPE.DISPLAY_ENABLED_BUDDY);// End DynamicControl displayX code
+
+
+        // Simply type floatBuddyControl to generate this code
+        FloatControl displayPitch = new FloatControl(this, "Pitch Monitor", 0) {
+            @Override
+            public void valueChanged(double control_val) {// Write your DynamicControl code below this line
+
+                // Write your DynamicControl code above this line
+            }
+        }.setDisplayRange(-1, 1, DynamicControl.DISPLAY_TYPE.DISPLAY_ENABLED_BUDDY);;// End DynamicControl displayY code
+
+
+        // Simply type floatBuddyControl to generate this code
+        FloatControl displayRoll = new FloatControl(this, "Roll Monitor", 0) {
+            @Override
+            public void valueChanged(double control_val) {// Write your DynamicControl code below this line
+
+                // Write your DynamicControl code above this line
+            }
+        }.setDisplayRange(-1, 1, DynamicControl.DISPLAY_TYPE.DISPLAY_ENABLED_BUDDY);;// End DynamicControl displayZ code
+
+
 
 
         /*****************************************************
@@ -61,6 +68,13 @@ public class MonitorGyroscope implements HBAction {
 
                 displayRoll.setValue(roll);
                 displayYaw.setValue(yaw);
+
+                // We will display our status as two decimal places
+                String status_display = "\tp:"+ String.format("%.1g", pitch)
+                        + "\tr:" + String.format("%.1g", roll)
+                        + "\ty:" + String.format("%.1g", yaw);
+
+                hb.setStatus(status_display);
                 /******** Write your code above this line ********/
             }
         };

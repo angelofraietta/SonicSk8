@@ -19,12 +19,11 @@ import java.lang.invoke.MethodHandles;
  * The global control then sends its value to all listeners on the network
  *
  * Additionally, changing the DynamicControl via GUI will also send global value across network
+ * The name of the device that sent the message will be displayed in the sendingDevice text Control
  *
  * Run this on two different devices
  */
 public class GlobalControl implements HBAction {
-    final int NUMBER_AUDIO_CHANNELS = 1; // define how many audio channels our device is using
-    
     /**********************************************
      We need to make our counter a class variable so
      it can be accessed within the message handler
@@ -44,7 +43,10 @@ public class GlobalControl implements HBAction {
         final float MAX_VOLUME = 0.1f; // define how loud we want the sound
 
         WaveModule player = new WaveModule(INITIAL_FREQUENCY, MAX_VOLUME, Buffer.SINE);
-        player.connectTo(hb.ac.out);
+        player.connectTo(HB.getAudioOutput());
+
+        // This will display the sending device
+        TextControl sendingDevice = new TextControl(this, "Sending Device", "");
 
 
         // Make an array of frequencies to switch between
@@ -52,15 +54,18 @@ public class GlobalControl implements HBAction {
 
 
         /* Type globalFloatControl to generate this code */
-        FloatBuddyControl globalFrequencyControl = new FloatBuddyControl(this, "global frequency control", INITIAL_FREQUENCY, 0, INITIAL_FREQUENCY * 3) {
+        FloatControl globalFrequencyControl = new FloatControl(this, "global frequency control", INITIAL_FREQUENCY) {
             @Override
             public void valueChanged(double control_val) { /* Write your DynamicControl code below this line */
                 // this value has been received either from the trigger below
                 // or over the network
                 player.setFrequency(control_val);
+
+                // now display the sending device
+                sendingDevice.setValue(getSendingDevice());
                 /* Write your DynamicControl code above this line */
             }
-        };
+        }.setDisplayRange(0, INITIAL_FREQUENCY * 3, DynamicControl.DISPLAY_TYPE.DISPLAY_ENABLED_BUDDY);
         globalFrequencyControl.setControlScope(ControlScope.GLOBAL);
         /* End DynamicControl globalFrequencyControl code */
 
@@ -75,6 +80,9 @@ public class GlobalControl implements HBAction {
                 else {
                     player.setGain(0);
                 }
+                // now display the sending device
+                sendingDevice.setValue(getSendingDevice());
+
                 /* Write your DynamicControl code above this line */
             }
         };

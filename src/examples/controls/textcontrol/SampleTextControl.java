@@ -4,15 +4,12 @@ import net.beadsproject.beads.ugens.SamplePlayer;
 import net.happybrackets.core.HBAction;
 import net.happybrackets.core.HBReset;
 import net.happybrackets.core.control.TextControl;
-import net.happybrackets.core.control.TextControlSender;
 import net.happybrackets.core.instruments.SampleModule;
 import net.happybrackets.device.HB;
 
 import java.lang.invoke.MethodHandles;
 
 public class SampleTextControl implements HBAction, HBReset {
-    // Change to the number of audio Channels on your device
-    final int NUMBER_AUDIO_CHANNELS = 1;
 
     final String COMMAND_PLAY = "play";
     final String COMMAND_STOP = "stop";
@@ -36,14 +33,14 @@ public class SampleTextControl implements HBAction, HBReset {
 
         /* type basicSamplePLayer to generate this code */
         // define our sample name
-        final String s = "data/audio/Roje/i-write.wav";
+        final String s = "data/audio/long/1979.wav";
         SampleModule samplePlayer = new SampleModule();
         if (samplePlayer.setSample(s)) {/* Write your code below this line */
-            samplePlayer.connectTo(hb.ac.out);
+            samplePlayer.connectTo(HB.getAudioOutput());
 
             /* Write your code above this line */
         } else {
-            hb.setStatus("Failed sample " + s);
+            HB.HBInstance.setStatus("Failed sample " + s);
         }/* End samplePlayer code */
 
         // make our sample loop
@@ -85,7 +82,7 @@ public class SampleTextControl implements HBAction, HBReset {
         // now make our instructions display in a text box
 
         /* Type textControlSender to generate this code */
-        TextControl instructionDisplay = new TextControlSender(this, "Command List", "");
+        TextControl instructionDisplay = new TextControl(this, "Command List", "");
 
         // Now let us just display the commands in a thread
         /* Type threadFunction to generate this code */
